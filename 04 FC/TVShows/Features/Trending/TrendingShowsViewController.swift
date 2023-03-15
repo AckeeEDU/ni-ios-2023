@@ -1,12 +1,13 @@
 import UIKit
 import SwiftUI
+import ACKategories_iOS
 
 protocol TrendingShowsFlowDelegate: AnyObject {
     func showSearch(from viewController: UIViewController)
     func showShow(_ show: Show)
 }
 
-final class TrendingShowsViewController: UIViewController {
+final class TrendingShowsViewController: Base.ViewController {
     private let viewModel = TrendingShowsViewModel()
     weak var flowDelegate: TrendingShowsFlowDelegate?
 

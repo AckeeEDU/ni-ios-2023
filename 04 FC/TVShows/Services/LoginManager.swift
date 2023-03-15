@@ -7,7 +7,7 @@ protocol LoginManagerDelegate: NSObject {
 final class LoginManager {
     static let shared = LoginManager()
 
-    var isLoggedIn: Bool = false
+    var isLoggedIn: Bool { accessToken != nil }
     weak var delegate: LoginManagerDelegate?
 
     var accessToken: String? {
@@ -18,10 +18,6 @@ final class LoginManager {
     var refreshToken: String? {
         get { UserDefaults.standard.string(forKey: "refreshToken") }
         set { UserDefaults.standard.set(newValue, forKey: "refreshToken") }
-    }
-
-    private init() {
-        updateLoggedInState()
     }
 
     func handleURL(_ url: URL) -> Bool {
@@ -43,18 +39,12 @@ final class LoginManager {
     func login(_ response: OAuthResponse) {
         accessToken = response.accessToken
         refreshToken = response.refreshToken
-        updateLoggedInState()
         delegate?.loggedInUpdated()
     }
 
     func logout() {
         accessToken = nil
         refreshToken = nil
-        updateLoggedInState()
         delegate?.loggedInUpdated()
-    }
-
-    private func updateLoggedInState() {
-        isLoggedIn = accessToken != nil
     }
 }

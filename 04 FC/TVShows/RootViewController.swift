@@ -1,36 +1,52 @@
 import UIKit
 import ACKategories_iOS
 
-final class RootViewController: Base.ViewController {
-    private weak var loginController: LoginViewController!
-    private weak var tabBar: UITabBarController!
+final class AppFlowCoordinator: Base.FlowCoordinatorNoDeepLink {
+    var isLoggedIn: Bool {
+        UserDefaults.standard.string(forKey: "accessToken") != nil
+    }
 
-    var trendingCoordinator: TrendingShowsFlowCoordinator!
-    var favoritesCoordinator: FavoriteShowsFlowCoordinator!
+    private weak var window: UIWindow?
 
-    override func loadView() {
-        super.loadView()
+    override func start(in window: UIWindow) {
+        self.window = window
 
-        view.backgroundColor = .white
+        super.start(in: window)
 
-        let loginController = LoginViewController()
-        embedController(loginController)
-        self.loginController = loginController
+        prepareWindow()
 
-        trendingCoordinator = TrendingShowsFlowCoordinator()
+        LoginManager.shared.delegate = self
+    }
+
+    private func prepareWindow() {
+        if isLoggedIn {
+            showMain()
+        } else {
+            stop()
+            showLogin()
+        }
+    }
+
+    private func showMain() {
+        let trendingCoordinator = TrendingShowsFlowCoordinator()
+        addChild(trendingCoordinator)
         let trendingController = trendingCoordinator.start()
         trendingController.tabBarItem.title = "Trending"
         trendingController.tabBarItem.image = UIImage(systemName: "flame")
+        trendingController.tabBarItem.selectedImage = UIImage(systemName: "flame.fill")
 
-        favoritesCoordinator = FavoriteShowsFlowCoordinator()
+        let favoritesCoordinator = FavoriteShowsFlowCoordinator()
+        addChild(favoritesCoordinator)
         let favoritesController = favoritesCoordinator.start()
         favoritesController.tabBarItem.title = "Favorites"
         favoritesController.tabBarItem.image = UIImage(systemName: "star")
+        favoritesController.tabBarItem.selectedImage = UIImage(systemName: "star.fill")
 
         let profileController = ProfileViewController()
         let profileNavigationController = UINavigationController(rootViewController: profileController)
         profileNavigationController.tabBarItem.title = "Profile"
         profileNavigationController.tabBarItem.image = UIImage(systemName: "person")
+        profileNavigationController.tabBarItem.selectedImage = UIImage(systemName: "person.fill")
 
         let tabBarController = UITabBarController()
         tabBarController.viewControllers = [
@@ -38,31 +54,24 @@ final class RootViewController: Base.ViewController {
             favoritesController,
             profileNavigationController
         ]
-        embedController(tabBarController)
-        self.tabBar = tabBarController
+
+        rootViewController = tabBarController
+
+        window?.rootViewController = tabBarController
+        window?.makeKeyAndVisible()
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    private func showLogin() {
+        let loginController = LoginViewController()
+        rootViewController = loginController
 
-        LoginManager.shared.delegate = self
-
-        updateState()
-    }
-
-    private func updateState() {
-        if UserDefaults.standard.string(forKey: "accessToken") != nil {
-            loginController.view.isHidden = true
-            tabBar.view.isHidden = false
-        } else {
-            loginController.view.isHidden = false
-            tabBar.view.isHidden = true
-        }
+        window?.rootViewController = loginController
+        window?.makeKeyAndVisible()
     }
 }
 
-extension RootViewController: LoginManagerDelegate {
+extension AppFlowCoordinator: LoginManagerDelegate {
     func loggedInUpdated() {
-        updateState()
+        prepareWindow()
     }
 }
