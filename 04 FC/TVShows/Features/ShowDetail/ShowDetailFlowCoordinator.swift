@@ -2,14 +2,19 @@ import UIKit
 import ACKategories_iOS
 
 final class ShowDetailFlowCoordinator: Base.FlowCoordinatorNoDeepLink {
-    func start(show: Show, withNavigationController navVC: UINavigationController) {
-        super.start(with: navVC)
+    private let show: Show
+
+    init(show: Show) {
+        self.show = show
+    }
+
+    override func start(with navigationController: UINavigationController) {
+        super.start(with: navigationController)
 
         let vc = ShowDetailViewController(viewModel: ShowDetailViewModel(show: show))
         vc.flowDelegate = self
-        navVC.pushViewController(vc, animated: true)
+        navigationController.pushViewController(vc, animated: true)
 
-        navigationController = navVC
         rootViewController = vc
     }
 }

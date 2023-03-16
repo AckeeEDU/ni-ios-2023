@@ -2,10 +2,6 @@ import UIKit
 import ACKategories_iOS
 
 final class AppFlowCoordinator: Base.FlowCoordinatorNoDeepLink {
-    var isLoggedIn: Bool {
-        UserDefaults.standard.string(forKey: "accessToken") != nil
-    }
-
     private weak var window: UIWindow?
 
     override func start(in window: UIWindow) {
@@ -19,7 +15,7 @@ final class AppFlowCoordinator: Base.FlowCoordinatorNoDeepLink {
     }
 
     private func prepareWindow() {
-        if isLoggedIn {
+        if LoginManager.shared.isLoggedIn {
             showMain()
         } else {
             stop()

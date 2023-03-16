@@ -25,8 +25,8 @@ extension TrendingShowsFlowCoordinator: TrendingShowsFlowDelegate {
 
     func showShow(_ show: Show) {
         guard let navigationController else { return }
-        let showCoordinator = ShowDetailFlowCoordinator()
+        let showCoordinator = ShowDetailFlowCoordinator(show: show)
         addChild(showCoordinator)
-        showCoordinator.start(show: show, withNavigationController: navigationController)
+        showCoordinator.start(with: navigationController)
     }
 }
