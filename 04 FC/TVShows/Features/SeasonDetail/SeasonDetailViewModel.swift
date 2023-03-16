@@ -1,8 +1,21 @@
 import SwiftUI
 
-final class SeasonDetailViewModel: ObservableObject {
+protocol SeasonDetailViewModeling: ObservableObject {
+    var isLoading: Bool { get set }
+    var episodes: [Episode] { get }
+    var title: String { get }
+
+    func isLastEpisode(_ episode: Episode) -> Bool
+    func fetchEpisodes() async
+}
+
+final class SeasonDetailViewModel: SeasonDetailViewModeling {
     let season: Season
     let show: Show
+
+    var title: String {
+        "Season \(season.number)"
+    }
 
     @Published var isLoading = true
     @Published var episodes: [Episode] = []

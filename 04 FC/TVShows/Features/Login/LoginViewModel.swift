@@ -1,7 +1,11 @@
 import Combine
 import Foundation
 
-final class LoginViewModel: ObservableObject {
+protocol LoginViewModeling: ObservableObject {
+    var loginURL: URL { get }
+}
+
+final class LoginViewModel: LoginViewModeling {
     var loginURL: URL {
         var components = URLComponents(string: "https://trakt.tv/oauth/authorize")
         components?.queryItems = [

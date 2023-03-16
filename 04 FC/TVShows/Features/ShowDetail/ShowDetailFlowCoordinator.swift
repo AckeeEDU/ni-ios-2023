@@ -11,8 +11,8 @@ final class ShowDetailFlowCoordinator: Base.FlowCoordinatorNoDeepLink {
     override func start(with navigationController: UINavigationController) {
         super.start(with: navigationController)
 
-        let vc = ShowDetailViewController(viewModel: ShowDetailViewModel(show: show))
-        vc.flowDelegate = self
+        let vm = ShowDetailViewModel(show: show)
+        let vc = ShowDetailViewController(viewModel: vm, flowDelegate: self)
         navigationController.pushViewController(vc, animated: true)
 
         rootViewController = vc

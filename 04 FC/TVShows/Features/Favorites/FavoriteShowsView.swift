@@ -1,7 +1,7 @@
 import SwiftUI
 
-struct FavoriteShowsView: View {
-    @ObservedObject var viewModel: FavoriteShowsViewModel
+struct FavoriteShowsView<ViewModel: FavoriteShowsViewModeling>: View {
+    @ObservedObject var viewModel: ViewModel
     let flowDelegate: FavoriteShowsFlowDelegate?
 
     var body: some View {

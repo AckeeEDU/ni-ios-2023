@@ -1,7 +1,7 @@
 import SwiftUI
 
-struct SearchView: View {
-    @ObservedObject var viewModel: SearchViewModel
+struct SearchView<ViewModel: SearchViewModeling>: View {
+    @ObservedObject var viewModel: ViewModel
     let flowDelegate: SearchFlowDelegate?
 
     var body: some View {

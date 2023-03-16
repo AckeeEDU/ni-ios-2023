@@ -38,7 +38,8 @@ final class AppFlowCoordinator: Base.FlowCoordinatorNoDeepLink {
         favoritesController.tabBarItem.image = UIImage(systemName: "star")
         favoritesController.tabBarItem.selectedImage = UIImage(systemName: "star.fill")
 
-        let profileController = ProfileViewController()
+        let profileViewModel = ProfileViewModel()
+        let profileController = ProfileViewController(viewModel: profileViewModel)
         let profileNavigationController = UINavigationController(rootViewController: profileController)
         profileNavigationController.tabBarItem.title = "Profile"
         profileNavigationController.tabBarItem.image = UIImage(systemName: "person")
@@ -58,7 +59,8 @@ final class AppFlowCoordinator: Base.FlowCoordinatorNoDeepLink {
     }
 
     private func showLogin() {
-        let loginController = LoginViewController()
+        let loginViewModel = LoginViewModel()
+        let loginController = LoginViewController(viewModel: loginViewModel)
         rootViewController = loginController
 
         window?.rootViewController = loginController

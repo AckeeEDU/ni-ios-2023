@@ -1,7 +1,7 @@
 import SwiftUI
 
-struct ProfileView: View {
-    @ObservedObject var viewModel: ProfileViewModel
+struct ProfileView<ViewModel: ProfileViewModeling>: View {
+    @ObservedObject var viewModel: ViewModel
 
     var body: some View {
         Button("Log out") {

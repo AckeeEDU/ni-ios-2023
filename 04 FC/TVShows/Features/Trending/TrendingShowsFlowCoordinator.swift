@@ -5,8 +5,8 @@ final class TrendingShowsFlowCoordinator: Base.FlowCoordinatorNoDeepLink {
     override func start() -> UIViewController {
         super.start()
 
-        let vc = TrendingShowsViewController()
-        vc.flowDelegate = self
+        let vm = TrendingShowsViewModel()
+        let vc = TrendingShowsViewController(viewModel: vm, flowDelegate: self)
         let navVC = UINavigationController(rootViewController: vc)
 
         rootViewController = vc

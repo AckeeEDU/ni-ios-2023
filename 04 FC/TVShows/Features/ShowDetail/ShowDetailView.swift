@@ -1,7 +1,7 @@
 import SwiftUI
 
-struct ShowDetailView: View {
-    @ObservedObject var viewModel: ShowDetailViewModel
+struct ShowDetailView<ViewModel: ShowDetailViewModeling>: View {
+    @ObservedObject var viewModel: ViewModel
     weak var flowDelegate: ShowDetailFlowDelegate?
 
     var body: some View {

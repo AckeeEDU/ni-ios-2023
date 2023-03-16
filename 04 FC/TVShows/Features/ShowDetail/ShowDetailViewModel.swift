@@ -1,7 +1,20 @@
 import SwiftUI
 
-final class ShowDetailViewModel: ObservableObject {
+protocol ShowDetailViewModeling: ObservableObject {
+    var isLoading: Bool { get set }
+    var isFavorite: Bool { get }
+    var seasons: [Season] { get }
+    var title: String { get }
+    var show: Show { get }
+
+    func fetchSeasons() async
+    func toggleFavorites()
+    func checkFavorites()
+}
+
+final class ShowDetailViewModel: ShowDetailViewModeling {
     let show: Show
+    var title: String { show.title }
 
     @Published var isLoading = true
     @Published var isFavorite = false

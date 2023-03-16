@@ -5,8 +5,8 @@ final class SearchFlowCoordinator: Base.FlowCoordinatorNoDeepLink {
     override func start(from viewController: UIViewController) {
         super.start(from: viewController)
 
-        let vc = SearchViewController()
-        vc.flowDelegate = self
+        let vm = SearchViewModel()
+        let vc = SearchViewController(viewModel: vm, flowDelegate: self)
         let navVC = UINavigationController(rootViewController: vc)
 
         self.navigationController = navVC

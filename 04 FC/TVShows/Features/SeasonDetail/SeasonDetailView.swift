@@ -1,7 +1,7 @@
 import SwiftUI
 
-struct SeasonDetailView: View {
-    @ObservedObject var viewModel: SeasonDetailViewModel
+struct SeasonDetailView<ViewModel: SeasonDetailViewModeling>: View {
+    @ObservedObject var viewModel: ViewModel
 
     var body: some View {
         ScrollView {

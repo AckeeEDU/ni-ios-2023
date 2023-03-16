@@ -2,10 +2,12 @@ import UIKit
 import SwiftUI
 import ACKategories_iOS
 
-final class SeasonDetailViewController: Base.ViewController {
-    private let viewModel: SeasonDetailViewModel
+final class SeasonDetailViewController<ViewModel: SeasonDetailViewModeling>: Base.ViewController {
+    private let viewModel: ViewModel
 
-    init(viewModel: SeasonDetailViewModel) {
+    // MARK: - Initialization
+
+    init(viewModel: ViewModel) {
         self.viewModel = viewModel
 
         super.init()
@@ -14,6 +16,8 @@ final class SeasonDetailViewController: Base.ViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    // MARK: - Lifecycle
 
     override func loadView() {
         super.loadView()
@@ -26,6 +30,6 @@ final class SeasonDetailViewController: Base.ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = "Season \(viewModel.season.number)"
+        navigationItem.title = viewModel.title
     }
 }

@@ -6,9 +6,27 @@ protocol SearchFlowDelegate: AnyObject {
     func showShow(_ show: Show)
 }
 
-final class SearchViewController: Base.ViewController {
-    private let viewModel = SearchViewModel()
+final class SearchViewController<ViewModel: SearchViewModeling>: Base.ViewController {
+    private let viewModel: ViewModel
     weak var flowDelegate: SearchFlowDelegate?
+
+    // MARK: - Initialization
+
+    init(
+        viewModel: ViewModel,
+        flowDelegate: SearchFlowDelegate?
+    ) {
+        self.viewModel = viewModel
+        self.flowDelegate = flowDelegate
+
+        super.init()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: - Lifecycle
 
     override func loadView() {
         super.loadView()

@@ -1,6 +1,14 @@
 import SwiftUI
 
-final class TrendingShowsViewModel: ObservableObject {
+protocol TrendingShowsViewModeling: ObservableObject {
+    var isLoading: Bool { get set }
+    var shows: [TrendingShow] { get }
+
+    func fetchFirstPage() async
+    func fetchNextPage() async
+}
+
+final class TrendingShowsViewModel: TrendingShowsViewModeling {
     @Published var isLoading = true
     @Published var shows: [TrendingShow] = []
 

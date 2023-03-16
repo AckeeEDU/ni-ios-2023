@@ -1,6 +1,13 @@
 import SwiftUI
 
-final class FavoriteShowsViewModel: ObservableObject {
+protocol FavoriteShowsViewModeling: ObservableObject {
+    var isLoading: Bool { get set }
+    var shows: [SearchedShow] { get }
+
+    func fetchShows() async
+}
+
+final class FavoriteShowsViewModel: FavoriteShowsViewModeling {
     @Published var isLoading = true
     @Published var shows: [SearchedShow] = []
 

@@ -1,6 +1,13 @@
 import SwiftUI
 
-final class SearchViewModel: ObservableObject {
+protocol SearchViewModeling: ObservableObject {
+    var shows: [SearchedShow] { get }
+    var searchText: String { get }
+
+    func searchTextChanged(_ text: String)
+}
+
+final class SearchViewModel: SearchViewModeling {
     @Published var shows: [SearchedShow] = []
 
     var searchText = ""

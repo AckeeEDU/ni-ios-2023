@@ -6,12 +6,15 @@ protocol ShowDetailFlowDelegate: AnyObject {
     func showSeasonDetail(season: Season, show: Show)
 }
 
-final class ShowDetailViewController: Base.ViewController {
-    private let viewModel: ShowDetailViewModel
+final class ShowDetailViewController<ViewModel: ShowDetailViewModeling>: Base.ViewController {
+    private let viewModel: ViewModel
     weak var flowDelegate: ShowDetailFlowDelegate?
 
-    init(viewModel: ShowDetailViewModel) {
+    // MARK: - Initialization
+
+    init(viewModel: ViewModel, flowDelegate: ShowDetailFlowDelegate?) {
         self.viewModel = viewModel
+        self.flowDelegate = flowDelegate
 
         super.init()
     }
@@ -19,6 +22,8 @@ final class ShowDetailViewController: Base.ViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    // MARK: - Lifecycle
 
     override func loadView() {
         super.loadView()
@@ -31,7 +36,7 @@ final class ShowDetailViewController: Base.ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = viewModel.show.title
+        navigationItem.title = viewModel.title
     }
 
     override func viewWillAppear(_ animated: Bool) {

@@ -7,9 +7,27 @@ protocol TrendingShowsFlowDelegate: AnyObject {
     func showShow(_ show: Show)
 }
 
-final class TrendingShowsViewController: Base.ViewController {
-    private let viewModel = TrendingShowsViewModel()
+final class TrendingShowsViewController<ViewModel: TrendingShowsViewModeling>: Base.ViewController {
+    private let viewModel: ViewModel
     weak var flowDelegate: TrendingShowsFlowDelegate?
+
+    // MARK: - Initialization
+
+    init(
+        viewModel: ViewModel,
+        flowDelegate: TrendingShowsFlowDelegate?
+    ) {
+        self.viewModel = viewModel
+        self.flowDelegate = flowDelegate
+
+        super.init()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: - Lifecycle
 
     override func loadView() {
         super.loadView()

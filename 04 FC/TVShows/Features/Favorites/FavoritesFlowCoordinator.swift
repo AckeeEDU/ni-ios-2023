@@ -5,8 +5,8 @@ final class FavoriteShowsFlowCoordinator: Base.FlowCoordinatorNoDeepLink {
     override func start() -> UIViewController {
         super.start()
 
-        let vc = FavoriteShowsViewController()
-        vc.flowDelegate = self
+        let vm = FavoriteShowsViewModel()
+        let vc = FavoriteShowsViewController(viewModel: vm, flowDelegate: self)
         let navVC = UINavigationController(rootViewController: vc)
 
         rootViewController = vc

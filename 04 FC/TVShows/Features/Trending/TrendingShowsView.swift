@@ -1,7 +1,7 @@
 import SwiftUI
 
-struct TrendingShowsView: View {
-    @ObservedObject var viewModel: TrendingShowsViewModel
+struct TrendingShowsView<ViewModel: TrendingShowsViewModeling>: View {
+    @ObservedObject var viewModel: ViewModel
     let flowDelegate: TrendingShowsFlowDelegate?
 
     var body: some View {
