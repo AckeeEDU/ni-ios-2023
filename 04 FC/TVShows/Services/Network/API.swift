@@ -174,16 +174,15 @@ final class TraktAPI {
     }
 
     private func dataRequest(for request: URLRequest) async throws -> (Data, URLResponse) {
-//        print("⬆️", request.url!.absoluteString)
-//        if let body = request.httpBody {
-//            print("BODY:", String(data: body, encoding: .utf8)!)
-//        }
-//        let (data, response) = try await URLSession.shared.data(for: request)
-//        print("⬇️", request.url!.absoluteString, "[", (response as? HTTPURLResponse)?.statusCode ?? 0, "]")
-//        print(String(data: data, encoding: .utf8)!)
-//
-//        return (data, response)
-        try await URLSession.shared.data(for: request)
+        print("⬆️", request.url!.absoluteString)
+        if let body = request.httpBody {
+            print("BODY:", String(data: body, encoding: .utf8)!)
+        }
+        let (data, response) = try await URLSession.shared.data(for: request)
+        print("⬇️", request.url!.absoluteString, "[", (response as? HTTPURLResponse)?.statusCode ?? 0, "]")
+        print(String(data: data, encoding: .utf8)!)
+
+        return (data, response)
     }
 }
 
