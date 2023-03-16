@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "ackategories",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/AckeeCZ/ACKategories",
+      "state" : {
+        "revision" : "fe78abea1b0dced6443c74358b4ffbd23cc24cdf",
+        "version" : "6.12.2"
+      }
+    }
+  ],
+  "version" : 2
+}
