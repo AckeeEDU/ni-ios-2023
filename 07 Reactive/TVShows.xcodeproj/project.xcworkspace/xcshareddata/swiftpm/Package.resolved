@@ -1,0 +1,23 @@
+{
+  "pins" : [
+    {
+      "identity" : "ackategories",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/AckeeCZ/ACKategories",
+      "state" : {
+        "revision" : "fe78abea1b0dced6443c74358b4ffbd23cc24cdf",
+        "version" : "6.12.2"
+      }
+    },
+    {
+      "identity" : "swift-snapshot-testing",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/swift-snapshot-testing",
+      "state" : {
+        "branch" : "main",
+        "revision" : "f5489a273ddd57239fd68b9889b3b541bdcbfa3a"
+      }
+    }
+  ],
+  "version" : 2
+}
