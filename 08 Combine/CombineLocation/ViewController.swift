@@ -1,3 +1,4 @@
+import Combine
 import MapKit
 import UIKit
 
@@ -34,6 +35,21 @@ final class ViewController: UIViewController {
         super.viewDidLoad()
         
         locationManager.requestPermission()
+        
+        setupBindings()
+    }
+    
+    private var cancellables = Set<AnyCancellable>()
+    
+    private func setupBindings() {
+        locationManager.currentLocation()
+            .sink { [weak self] location in
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = location.coordinate
+                self?.mapView.addAnnotation(annotation)
+                self?.mapView.setCenter(location.coordinate, animated: true)
+            }
+            .store(in: &cancellables)
     }
 }
 
