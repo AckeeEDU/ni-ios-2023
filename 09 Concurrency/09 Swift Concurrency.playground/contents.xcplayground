@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<playground version='6.0' target-platform='ios' display-mode='raw' buildActiveScheme='true' importAppTypes='true'>
+    <pages>
+        <page name='Opáčko - combine'/>
+        <page name='Opáčko - closures'/>
+        <page name='Opáčko - Concurrency'/>
+        <page name='Opáčko - Concurrency custom'/>
+        <page name='Async Stream'/>
+        <page name='Async Stream - usage'/>
+        <page name='Map+Filter'/>
+        <page name='Merge'/>
+        <page name='CombineLatest'/>
+        <page name='FlatMap'/>
+        <page name='Concurrency + Combine'/>
+    </pages>
+</playground>
