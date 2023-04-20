@@ -2,12 +2,18 @@ import CoreLocation
 import Combine
 
 protocol LocationManaging {
-    func currentLocation() -> any Publisher<CLLocation, Never>
+    var currentLocationStream: AsyncStream<CLLocation> { get }
     
+    func currentLocation() -> any Publisher<CLLocation, Never>
     func requestPermission()
 }
 
 final class CombineLocationManager: NSObject, LocationManaging, CLLocationManagerDelegate {
+    lazy var currentLocationStream = AsyncStream<CLLocation> { [weak self] c in
+        self?.contiunation = c
+    }
+    
+    private var contiunation: AsyncStream<CLLocation>.Continuation?
     private let manager = CLLocationManager()
     private let locationsSubject = PassthroughSubject<CLLocation, Never>()
     
@@ -30,6 +36,7 @@ final class CombineLocationManager: NSObject, LocationManaging, CLLocationManage
     ) {
         locations.forEach { location in
             locationsSubject.send(location)
+            contiunation?.yield(location)
         }
     }
     

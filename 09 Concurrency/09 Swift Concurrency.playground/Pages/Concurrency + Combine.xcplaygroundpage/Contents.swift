@@ -9,9 +9,14 @@ PlaygroundPage.current.needsIndefiniteExecution = true
 
 let subject = PassthroughSubject<Int, Never>()
 
+subject.sink { value in
+    print("[sink]", value)
+    
+}
+
 Task {
     for await value in subject.values {
-        print(value)
+        print("[for]", value)
     }
 }
 

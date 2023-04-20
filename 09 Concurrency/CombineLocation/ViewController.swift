@@ -42,14 +42,24 @@ final class ViewController: UIViewController {
     private var cancellables = Set<AnyCancellable>()
     
     private func setupBindings() {
-        locationManager.currentLocation()
-            .sink { [weak self] location in
-                let annotation = MKPointAnnotation()
-                annotation.coordinate = location.coordinate
-                self?.mapView.addAnnotation(annotation)
-                self?.mapView.setCenter(location.coordinate, animated: true)
+        Task {
+            for await location in locationManager.currentLocationStream {
+                addPin(to: location)
             }
-            .store(in: &cancellables)
+        }
+        
+//        locationManager.currentLocation()
+//            .sink { [weak self] location in
+//                self?.addPin(to: location)
+//            }
+//            .store(in: &cancellables)
+    }
+    
+    private func addPin(to location: CLLocation) {
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = location.coordinate
+        mapView.addAnnotation(annotation)
+        mapView.setCenter(location.coordinate, animated: true)
     }
 }
 
