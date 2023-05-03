@@ -20,5 +20,9 @@ jobs:
       - name: Tests
         run: |
           set -euo pipefail; 
-          xcodebuild test -scheme TVShows -project 11\ CI/TVShows.xcodeproj -destination 'platform=iOS Simulator,name=iPhone 13 Pro Max' | xcpretty
+          xcodebuild test -scheme TVShows -project 11\ CI/TVShows.xcodeproj -destination 'platform=iOS Simulator,name=iPhone 13 Pro Max' -resultBundlePath Tests.xcresult | xcpretty
+      - uses: actions/upload-artifact@v3
+        with:
+          name: Test results
+          path: Tests.xcresult
         
