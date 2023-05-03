@@ -9,5 +9,5 @@ jobs:
     steps:
       - uses: actions/checkout@v3.5.0
       - name: Build
-        run: set -euo pipefail; xcodebuild build -scheme TVShows | xcpretty
+        run: set -euo pipefail; xcodebuild build -scheme TVShows -project 11\ CI/TVShows.xcodeproj | xcpretty
         
