@@ -3,11 +3,11 @@ name: Build
 on: [pull_request, push, workflow_dispatch]
 
 jobs:
-  carthage:
-    name: Carthage
+  build:
+    name: Build
     runs-on: macos-13
     steps:
       - uses: actions/checkout@v3.5.0
       - name: Build
-        run: xcodebuild clean build -scheme TVShows | xcpretty
+        run: set -euo pipefail; xcodebuild build -scheme TVShows | xcpretty
         
