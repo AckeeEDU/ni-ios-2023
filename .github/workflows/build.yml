@@ -15,6 +15,10 @@ jobs:
     runs-on: macos-13
     steps:
       - uses: actions/checkout@v3.5.0
+      - name: Create sim
+        run: xcrun simctl create "iPhone 13 Pro Max" "iPhone 13 Pro Max"
       - name: Tests
-        run: set -euo pipefail; xcodebuild test -scheme TVShows -project 11\ CI/TVShows.xcodeproj -destination 'platform=iOS Simulator,name=iPhone 13 Pro Max' | xcpretty
+        run: |
+          set -euo pipefail; 
+          xcodebuild test -scheme TVShows -project 11\ CI/TVShows.xcodeproj -destination 'platform=iOS Simulator,name=iPhone 13 Pro Max' | xcpretty
         
