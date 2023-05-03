@@ -16,5 +16,5 @@ jobs:
     steps:
       - uses: actions/checkout@v3.5.0
       - name: Tests
-        run: set -euo pipefail; xcodebuild test -scheme TVShows -project 11\ CI/TVShows.xcodeproj -destination 'generic/platform=iOS Simulator' | xcpretty
+        run: set -euo pipefail; xcodebuild test -scheme TVShows -project 11\ CI/TVShows.xcodeproj -destination 'platform=iOS Simulator,name=iPhone 13 Pro Max' | xcpretty
         
