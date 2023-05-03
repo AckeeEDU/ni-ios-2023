@@ -10,4 +10,11 @@ jobs:
       - uses: actions/checkout@v3.5.0
       - name: Build
         run: set -euo pipefail; xcodebuild build -scheme TVShows -project 11\ CI/TVShows.xcodeproj -destination 'generic/platform=iOS Simulator' | xcpretty
+  tests:
+    name: Tests
+    runs-on: macos-13
+    steps:
+      - uses: actions/checkout@v3.5.0
+      - name: Tests
+        run: set -euo pipefail; xcodebuild test -scheme TVShows -project 11\ CI/TVShows.xcodeproj -destination 'generic/platform=iOS Simulator' | xcpretty
         
